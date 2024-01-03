@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mint Tokens</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js" type="application/javascript"></script>
+    <style>
+        /* body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        } */
+
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200vh;
+            background-image: url("path/to/your/image.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+        }
+
+        #logo {
+            margin: 1em;
+        }
+
+        #logoText {
+            font-size: 48px;
+            font-weight: 100;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        #subText {
+            font-size: 18px;
+            font-weight: 100;
+            margin-top: 5px;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("sky.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        #addressInput {
+            margin-bottom: 1em;
+            width: 50%;
+        }
+
+        button {
+            margin-bottom: 1em;
+        }
+
+        #connectAccountBtn {
+            position: absolute;
+            top: 4em;
+            right: 4em;
+        }
+
+        #logo {
+            margin: 1em;
+        }
+
+        .mintGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 50%;
+        }
+
+        .bigtext {
+            font-size: 22px;
+            font-weight: 100;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .smalltext {
+            font-size: 18px;
+            font-weight: 100;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header">
+        <img id="logo" src="logoBig.png" alt="Thin Air Logo" width="200" height="200" />
+        <h1 id="logoText">$ThinAir</h1>
+        <h2 id="subText">A meme coin out of thin air.</h2>
+    </div>
+
+    <div id="content">
+        <img id="logo" src="ThinAir-Sherman.gif" alt="Thin Air Logo" width="200" height="200" />
+
+        <div class="bigtext">
+
+            $ThinAir Mint is Live!
+
+        </div>
+
+        <div class="smalltext">
+
+            Get as much $thinair as you want!
+
+        </div>
+
+        <button id="connectAccountBtn" onclick="connectAccount()">
+            Connect Account
+        </button>
+        <input type="text" id="addressInput" placeholder="Enter Ethereum Address" oninput="checkAddress()" disabled>
+
+        <form id="mintForm">
+            <table>
+                <tr>
+                    <td>
+                        <input id="radio1" type="radio" name="mintAmount" value="1" disabled>1 Token<br>
+                    </td>
+                    <td>
+                        <span id="radioLabel1"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="radio2" type="radio" name="mintAmount" value="10" disabled>10 Tokens<br>
+                    </td>
+                    <td>
+                        <span id="radioLabel2"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="radio3" type="radio" name="mintAmount" value="100" disabled>100 Tokens<br>
+                    </td>
+                    <td>
+                        <span id="radioLabel3"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="radio4" type="radio" name="mintAmount" value="1000" disabled>1 Thousand Tokens<br>
+                    </td>
+                    <td>
+                        <span id="radioLabel4"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="radio5" type="radio" name="mintAmount" value="1000000" disabled>1 Million Tokens<br>
+                    </td>
+                    <td>
+                        <span id="radioLabel5"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="radio6" type="radio" name="mintAmount" value="1000000000" disabled>1 Billion
+                        Tokens<br>
+                    </td>
+                    <td>
+                        <span id="radioLabel6"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="radio7" type="radio" name="mintAmount" value="1000000000000" disabled>1 Trillion
+                        Tokens<br>
+                    </td>
+                    <td>
+                        <span id="radioLabel7"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="mintAmount" value="602200000000000000000000" id="moleRadio" disabled>1
+                        Mole
+                        Of Tokens
+                    </td>
+                    <td>
+                        <span id="radioLabel8">
+                            FREE FOR ANCHOR WALLETS!
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <button type="button" onclick="mintToken()" disabled id="mintButton">Mint Tokens</button>
+
+        <a id="contractLink" target="_blank" rel="noopener noreferrer">View Contract </a>
+
+
+    </div>
+
+    <script>
+
+        const radioLabelText = "FREE!";
+
+        const settings = {
+            explorerBaseURL: 'https://mumbai.polygonscan.com/token/',
+            tokenAddress: '0x5dfe2d3aAc753657Cfd36eF9B181eE9Cdaa3BE6b',
+            specialContractAddress: '0xF21b9A19BC15E81D0C766E77974184810182Ad04',
+            chainId: 80001
+        };
+
+        // Check if Web3 has been injected by the browser Metamask
+        if (typeof window.ethereum !== 'undefined') {
+            console.log('MetaMask is installed!');
+        }
+
+        // Create a new provider and set it to the Mumbai Testnet
+        const contractAddress = settings.tokenAddress;
+        const contractABI = [
+            "function mint(address to, uint256 amount) public"
+        ];
+
+
+        async function connectAccount() {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: `0x${(settings.chainId).toString(16)}` }]
+            }).then(() => {
+                // Enable the input field upon successful connection
+                document.getElementById('addressInput').disabled = false;
+            }).catch(async (error) => {
+                console.log(`Error: Could not switch to chain `)
+                return
+            })
+        }
+
+
+        async function isSpecial(address) {
+            // Minimal ABI to call `isSpecialAccount`
+            const specialContractABI = [{
+                "constant": true,
+                "inputs": [{ "name": "_wallet", "type": "address" }],
+                "name": "isSpecialAccount",
+                "outputs": [{ "name": "", "type": "bool" }],
+                "type": "function"
+            }];
+
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const contract = new ethers.Contract(settings.specialContractAddress, specialContractABI, provider);
+            const isSpecial = await contract.isSpecialAccount(address);
+            return isSpecial;
+        }
+
+        async function resolveName(name) {
+            const rpcs = [
+                'https://eth.llamarpc.com',
+                'https://api.zmok.io/mainnet/oaen6dy8ff6hju9k',
+                'https://rpc.mevblocker.io',
+            ]
+            const providers = rpcs.map(rpc => ethers.getDefaultProvider(rpc))
+            const fallbackProvider = new ethers.providers.FallbackProvider(providers)
+            const address = await fallbackProvider.resolveName(name).catch(() => { })
+            console.log(`Resolved ${name} to ${address}`)
+            return address
+        }
+
+        async function checkAddress() {
+            let toAddress = document.getElementById('addressInput').value;
+            const moleRadio = document.getElementById('moleRadio');
+            const mintButton = document.getElementById('mintButton');
+            const radios = document.getElementsByName('mintAmount');
+
+            for (let radio of radios) {
+                radio.disabled = true;
+            }
+            // mintButton.disabled = true;
+
+            if (!ethers.utils.isAddress(toAddress)) {
+                // check if is ens name
+                const resolvedAddress = await resolveName(toAddress);
+                if (!ethers.utils.isAddress(resolvedAddress)) {
+                    mintButton.disabled = true;
+                    return;
+                }
+                toAddress = resolvedAddress;
+                document.getElementById('addressInput').value = toAddress;
+            }
+
+            for (let radio of radios) {
+                radio.disabled = false;
+            }
+            // mintButton.disabled = false;
+            moleRadio.disabled = !(await isSpecial(toAddress));
+        }
+
+
+        async function mintToken() {
+            const radios = document.getElementsByName('mintAmount');
+            let amount;
+            for (let radio of radios) {
+                if (radio.checked) {
+                    amount = radio.value;
+                    break;
+                }
+            }
+
+            if (!amount) {
+                alert('Please select the amount of tokens to mint.');
+                return;
+            }
+
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            console.log(signer);
+            const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+            const toAddress = document.getElementById('addressInput').value;
+            if (!ethers.utils.isAddress(toAddress)) {
+                alert('Please enter a valid Ethereum address.');
+                return;
+            }
+
+            try {
+                const tx = await contract.mint(toAddress, amount.toString());
+
+                await tx.wait();
+                alert(`Successfully minted ${amount} tokens to address ${toAddress}`);
+            } catch (err) {
+                console.error('An error occurred', err);
+                alert('An error occurred. Check the console for more details.');
+            }
+        }
+
+
+        // Update the href attribute of the contract link
+        document.getElementById('contractLink').href = settings.explorerBaseURL + settings.tokenAddress;
+
+        document.getElementById('radioLabel1').textContent = radioLabelText;
+        document.getElementById('radioLabel2').textContent = radioLabelText;
+        document.getElementById('radioLabel3').textContent = radioLabelText;
+        document.getElementById('radioLabel4').textContent = radioLabelText;
+        document.getElementById('radioLabel5').textContent = radioLabelText;
+        document.getElementById('radioLabel6').textContent = radioLabelText;
+        document.getElementById('radioLabel7').textContent = radioLabelText;
+
+        window.onload = function () {
+            // get all radio buttons
+            let radios = document.getElementsByName('mintAmount');
+            let mintButton = document.getElementById('mintButton');
+
+            for (let radio of radios) {
+                // add an event listener to each radio button
+                radio.addEventListener('change', function () {
+                    // if a radio button is selected, enable the mint button
+                    if (this.checked) {
+                        mintButton.disabled = false;
+                    }
+                });
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

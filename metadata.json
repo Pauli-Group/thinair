@@ -1,0 +1,21 @@
+{
+  "name": "Thin Air",
+  "description": "Crypto bros make money literally by making money and they've made over a trillion dollars. Out of thin air! uhhh.. they'll accuse the US government of making money out of thin air, maybe we do but we're the US government. Nixon said we could. ",
+  "image": "https://ipfs.io/ipfs/QmaKH9Qfp4NnpSgdrDVBPVaFrsvHcMiHAfVgWvWPLbjfTU",
+  "properties": {
+    "symbol": "thinair",
+    "ticker": "thinair",
+    "logo": "https://ipfs.io/ipfs/QmaKH9Qfp4NnpSgdrDVBPVaFrsvHcMiHAfVgWvWPLbjfTU",
+    "logoFast": "https://firebasestorage.googleapis.com/v0/b/wallet-wi.appspot.com/o/logoBig.png?alt=media",
+    "logoSmall": "https://ipfs.io/ipfs/QmXcHuaS5UixTTrowU2x8MWkA75GsmchL6TorbwdETvg8q",
+    "logoSmallFast": "https://firebasestorage.googleapis.com/v0/b/wallet-wi.appspot.com/o/logoSmall.png?alt=media",
+    "imageFast": "https://firebasestorage.googleapis.com/v0/b/wallet-wi.appspot.com/o/logoBig.png?alt=media",
+    "imageDescription": "The Thin Air Logo",
+    "image1": "https://ipfs.io/ipfs/QmYjEh5DWCFLAVYNeegfc7VMvNQ9Q9uehH1UTxVjYxYk7q",
+    "image1Fast": "https://firebasestorage.googleapis.com/v0/b/wallet-wi.appspot.com/o/thinairText.png?alt=media",
+    "image1Description": "A view above the clouds. Pink text in the center reading '$thinair'",
+    "image2": "https://ipfs.io/ipfs/QmcUDdEbn9Emxe6kwkBXCUyrgrjQ8EfftUWPQoeEjtvCiq",
+    "image2Fast": "https://firebasestorage.googleapis.com/v0/b/wallet-wi.appspot.com/o/ThinAir-Sherman.gif?alt=media",
+    "image2Description": "A gif of Mr. Sherman being a cry baby"
+  }
+}
